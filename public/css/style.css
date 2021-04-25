@@ -5,7 +5,7 @@ body {
 .hero {
   height: 100vh;
 
-  background: url('../images/background_taj.jpg');
+  background: url('../images/ny.jpg');
 
   background-position: center;
   background-repeat: no-repeat;
@@ -33,9 +33,19 @@ body {
   width: 75px;
   height: auto;
 }
+.clear {
+  display: none;
+  float: right;
+  position: relative;
+}
 
+.del{
+  float: right;
+  margin:5px;
+}
 @media screen and (min-width: 576px) {
   .jumbotron {
     padding: 8rem 2rem;
   }
 }
+
