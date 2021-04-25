@@ -1,5 +1,3 @@
-
-
 // Get user location and date input on  submit
 const getCity = () => {
 
@@ -8,7 +6,7 @@ const getCity = () => {
   city = city.toLowerCase();
   city = city[0].toUpperCase() + city.slice(1);
 
-  console.log(city);
+  // console.log(city);
 
   return city;
 }
@@ -35,7 +33,7 @@ const countdown = (start, end) => {
 
   const daysLeft = Math.ceil(countdown / 86400000);
 
-  console.log(daysLeft);
+  // console.log(daysLeft);
 
   return daysLeft;
 }
@@ -65,7 +63,7 @@ async function getGeoLocation(location) {
       location.longitude = jsonRes.geonames[0].lng;
       location.countryCode = jsonRes.geonames[0].countryCode;
 
-      console.log(location);
+      // console.log(location);
       return location;
     }
   } catch (error) {
@@ -84,7 +82,7 @@ async function getWeatherForecast(latitude, longitude) {
       });
     if (response.ok) {
       const jsonRes = await response.json();
-      console.log(jsonRes);
+      // console.log(jsonRes);
       return jsonRes;
     }
   } catch (error) {
@@ -125,11 +123,7 @@ async function getCountryInfo(countryCode) {
     const response = await fetch(endpoint);
     if (response.ok) {
       const jsonRes = await response.json();
-      console.log(jsonRes);
-      // return {
-      //          name: jsonRes.name,
-      //          flag: jsonRes.flag
-      //       }
+      // console.log(jsonRes);
       return jsonRes;
     }
   } catch (error) {
@@ -208,6 +202,7 @@ const showModal = (trip) => {
 
   // Display weather info
   const weather = getWeatherInfo(trip.weatherForecast, daysLeft, tripStart);
+
   if (daysLeft < 7) {
     document.querySelector('.trip_weather').innerHTML = `<p class="mt-1">The current weather:</p>
                                                        <p class="mt-1">${weather.temperature}&deg;F</p>
@@ -222,11 +217,9 @@ const showModal = (trip) => {
 
 const displayTrip = (trip) => {
 
-
   document.querySelector('.caption').style.display = 'block';
   document.querySelector('.caption').style.top = '5vh';
 
-  $('#tripModal').modal('toggle');
 
   const tripStart = getTripDate(trip.start);
   const tripEnd = getTripDate(trip.end);
@@ -237,7 +230,7 @@ const displayTrip = (trip) => {
   section.classList.add('trips');
 
   const div = document.createElement('div');
-
+ 
   div.innerHTML = `
   <div class="card mb-3" style="max-width: 768px; margin: 0 auto">
     <div class="row no-gutters">
@@ -255,7 +248,9 @@ const displayTrip = (trip) => {
           <p>${weather.temperature}&deg;F</p>
           <p>${weather.summary}</p>
         </div>
+        <button type="button" class="btn btn-secondary del" name="${trip.city}">delete</button>
       </div>
+     
     </div>
   </div>`;
 
@@ -266,8 +261,21 @@ const displayTrip = (trip) => {
 
 
 
+
+
+let itemsArray = localStorage.getItem('items')
+  ? JSON.parse(localStorage.getItem('items'))
+  : [];
+
+window.localStorage.setItem('items', JSON.stringify(itemsArray))
+
 const trip = {};
 
+//display all the trips which are saved in local storage
+itemsArray.forEach((item) => {
+  document.getElementsByClassName("clear")[0].style.display = 'block';
+  displayTrip(item)
+})
 /* Button handle functions */
 
 const handleSearch = async (e) => {
@@ -292,7 +300,7 @@ const handleSearch = async (e) => {
 
   trip.image = await getImageURL(trip.city, trip.country);
 
-  console.log(trip);
+  // console.log(trip);
 
   showModal(trip);
 }
@@ -309,7 +317,12 @@ const handleSave = async (e) => {
       });
     if (response.ok) {
       const jsonRes = await response.json();
+      itemsArray.push(jsonRes)
+      localStorage.setItem('items', JSON.stringify(itemsArray))
+      $('#tripModal').modal('toggle');
+      document.getElementsByClassName("clear")[0].style.display = 'block';
       displayTrip(jsonRes);
+      window.location.reload(true);
       return jsonRes;
     }
   } catch (error) {
@@ -323,8 +336,8 @@ const handleCancel = (e) => {
   document.querySelector('.caption').style.display = 'block';
 }
 
-/* Add event listeners */
 
+/* Add event listeners */
 document.getElementById('button_search').addEventListener('click', handleSearch);
 
 document.querySelector('.trip_save').addEventListener('click', handleSave)
@@ -332,3 +345,27 @@ document.querySelector('.trip_save').addEventListener('click', handleSave)
 document.querySelectorAll('.trip_cancel').forEach(element => {
   element.addEventListener('click', handleCancel);
 });
+
+//someone wants to delete all the trips
+document.getElementsByClassName("clear")[0].addEventListener('click', function () {
+  localStorage.clear()
+  document.getElementsByClassName("clear")[0].style.display = 'none';
+  window.location.reload(true)
+})
+//if we want to delete a particular trip
+var numberOfButtons = document.querySelectorAll(".del").length;
+
+for (var i = 0; i < numberOfButtons; i++) {
+  document.querySelectorAll(".del")[i].addEventListener("click", function () {
+
+    var newarray = [];
+    for (var j = 0; j < itemsArray.length; j++) {
+      if (itemsArray[j].city != this.name) {
+        newarray.push(itemsArray[j]);
+      }
+    }
+    window.localStorage.setItem('items', JSON.stringify(newarray))
+    itemsArray = newarray;
+    window.location.reload(true)
+  })
+}
