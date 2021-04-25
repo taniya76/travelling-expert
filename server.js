@@ -17,8 +17,8 @@ app.use(express.json());
 app.use(express.static('./public'));
 
 const PORT = 8080;
-app.listen(process.env.PORT || PORT, function() {
-  console.log("server is running on port 6060")
+app.listen(PORT, () => {
+  console.log(`CORS-enabled web server listening on port ${PORT}`);
 });
 
 /* Trips Array */

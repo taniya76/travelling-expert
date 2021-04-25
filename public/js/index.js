@@ -39,7 +39,7 @@ const countdown = (start, end) => {
 }
 
 
-const geonamesUrl = 'https://api.geonames.org/';
+const geonamesUrl = 'http://api.geonames.org/';
 const geonamesKey = 'stamay';
 const geonamesQuery = 'searchJSON?formatted=true&q=';
 
@@ -74,7 +74,7 @@ async function getGeoLocation(location) {
 async function getWeatherForecast(latitude, longitude) {
   const endpoint = darkSkyURL + darkSkyKey + `/${latitude}, ${longitude}`;
   try {
-    const response = await fetch('https://localhost:8080/forecast',
+    const response = await fetch('http://localhost:8080/forecast',
       {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
