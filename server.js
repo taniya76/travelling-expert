@@ -21,21 +21,15 @@ app.listen(PORT, () => {
   console.log(`CORS-enabled web server listening on port ${PORT}`);
 });
 
-/* Trips Array */
-
-// const trips = [];
-
 /* Routes */
 
 app.get('/', (req, res) => {
-  res.status(200).send('./public/index.html');
+  res.status(200).sendFile(__dirname+ "/index.html");
 });
 
 app.post('/save', (req, res, next) => {
   if (req.body !== " ") {
     const trip = req.body.trip;
-    // console.log(trip);
-    // trips.push(trip);
     res.status(201).send(trip);
   } else {
     res.status(400).json('Bad Request');
