@@ -189,7 +189,7 @@ const showModal = (trip) => {
   document.querySelectorAll('.media_heading')[1].innerText = tripStart;
   document.querySelectorAll('.media_heading')[2].innerText = tripEnd;
 
-  document.querySelectorAll('.media_heading')[3].innerText = `${countdown(trip.start, trip.end)} days`;
+  document.querySelectorAll('.media_heading')[3].innerText = `${countdown(trip.start, trip.end)} days😀`;
 
   // Display trip images
   // const imageURL = await getTripImageURL(images);
@@ -200,10 +200,10 @@ const showModal = (trip) => {
 
 
   if (new Date() > new Date(trip.end)) {
-    document.getElementsByClassName("trip_countdown")[0].innerHTML = 'Your trip seemed to be ended!'
+    document.getElementsByClassName("trip_countdown")[0].innerHTML = 'Your trip seemed to be ended!🙁'
   }
   else if (daysLeft <= 0) {
-    document.getElementsByClassName("trip_countdown")[0].innerHTML = 'You seemed to be on the trip!'
+    document.getElementsByClassName("trip_countdown")[0].innerHTML = 'You seemed to be on the trip!🤩'
   } else {
     document.querySelector('.trip_countdown').innerText = `Your trip to ${trip.city} is ${daysLeft} days away`;
   }
@@ -251,7 +251,7 @@ const displayTrip = (trip) => {
           <h6 class="mt-0">Departure: ${tripStart}</h6>
           <h6 class="mt-0">Return: ${tripEnd}</h6>
           <h6 class="mt-0">Duration: ${countdown(trip.start, trip.end)} days</h6>
-          <h6 class="trip_countdown">Your trip to ${trip.city} is ${daysLeft} days away</h6>
+          <h6 class="trip_countdown">Your trip to ${trip.city} is ${daysLeft} days away😀</h6>
           <p>The current weather:</p>
           <p>${weather.temperature}&deg;F</p>
           <p>${weather.summary}</p>
@@ -263,10 +263,10 @@ const displayTrip = (trip) => {
   </div>`;
 
   if (new Date() > new Date(trip.end)) {
-    box.getElementsByClassName("trip_countdown")[0].innerHTML = 'Your trip seemed to be ended!'
+    box.getElementsByClassName("trip_countdown")[0].innerHTML = 'Your trip seemed to be ended!🙁'
   }
   else if (daysLeft <= 0) {
-    box.getElementsByClassName("trip_countdown")[0].innerHTML = 'You seemed to be on the trip!'
+    box.getElementsByClassName("trip_countdown")[0].innerHTML = 'You seemed to be on the trip!🤩'
   }
 
   section.appendChild(box);
