@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 // parse application/json
 app.use(express.json());
 
-app.use(express.static('./public'));
+app.use(express.static(__dirname+'./public'));
 
 const PORT = 8080;
 app.listen(PORT, () => {
