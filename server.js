@@ -8,17 +8,18 @@ const fetch = require('node-fetch')
 const app = express();
 app.use(cors());
 
+app.use(express.static(__dirname+'public'));
+
 // parse application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(express.json());
 
-app.use(express.static(__dirname+'./public'));
 
-const PORT = 8080;
-app.listen(PORT, () => {
-  console.log(`CORS-enabled web server listening on port ${PORT}`);
+const Port = 8080;
+app.listen(process.env.PORT || Port, () => {
+  console.log(`CORS-enabled web server listening on port ${Port}`);
 });
 
 /* Routes */
