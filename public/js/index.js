@@ -39,7 +39,7 @@ const countdown = (start, end) => {
 }
 
 
-const geonamesUrl = 'https://api.geonames.org/';
+const geonamesUrl = 'http://api.geonames.org/';
 const geonamesKey = 'stamay';
 const geonamesQuery = 'searchJSON?formatted=true&q=';
 
