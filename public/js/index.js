@@ -28,7 +28,7 @@ const countdown = (start, end) => {
 
   const tripStart = Date.parse(start);
   const tripEnd = Date.parse(end);
-
+  // console.log(tripStart, tripEnd)
   const countdown = tripEnd - tripStart;
 
   const daysLeft = Math.ceil(countdown / 86400000);
@@ -74,7 +74,7 @@ async function getGeoLocation(location) {
 async function getWeatherForecast(latitude, longitude) {
   const endpoint = darkSkyURL + darkSkyKey + `/${latitude}, ${longitude}`;
   try {
-    var url1='/forecast';
+    var url1 = '/forecast';
     const response = await fetch(url1,
       {
         method: 'POST',
@@ -197,8 +197,16 @@ const showModal = (trip) => {
 
   // Display the days left to trip
   const daysLeft = countdown(new Date(), trip.start);
-  document.querySelector('.trip_countdown').innerText = `Your trip to ${trip.city} is ${daysLeft} days away`;
 
+
+  if (new Date() > new Date(trip.end)) {
+    document.getElementsByClassName("trip_countdown")[0].innerHTML = 'Your trip seemed to be ended!'
+  }
+  else if (daysLeft <= 0) {
+    document.getElementsByClassName("trip_countdown")[0].innerHTML = 'You seemed to be on the trip!'
+  } else {
+    document.querySelector('.trip_countdown').innerText = `Your trip to ${trip.city} is ${daysLeft} days away`;
+  }
   // Display weather info
   const weather = getWeatherInfo(trip.weatherForecast, daysLeft, tripStart);
 
@@ -214,6 +222,7 @@ const showModal = (trip) => {
 
 }
 
+
 const displayTrip = (trip) => {
 
   document.querySelector('.caption').style.display = 'block';
@@ -228,9 +237,9 @@ const displayTrip = (trip) => {
   const section = document.createElement('section');
   section.classList.add('trips');
 
-  const div = document.createElement('div');
- 
-  div.innerHTML = `
+  const box = document.createElement('div');
+
+  box.innerHTML = `
   <div class="card mb-3" style="max-width: 768px; margin: 0 auto">
     <div class="row no-gutters">
       <div class="col-md-4">
@@ -242,7 +251,7 @@ const displayTrip = (trip) => {
           <h6 class="mt-0">Departure: ${tripStart}</h6>
           <h6 class="mt-0">Return: ${tripEnd}</h6>
           <h6 class="mt-0">Duration: ${countdown(trip.start, trip.end)} days</h6>
-          <span class="trip_countdown">Your trip to ${trip.city} is ${daysLeft} days away</span>
+          <h6 class="trip_countdown">Your trip to ${trip.city} is ${daysLeft} days away</h6>
           <p>The current weather:</p>
           <p>${weather.temperature}&deg;F</p>
           <p>${weather.summary}</p>
@@ -253,7 +262,14 @@ const displayTrip = (trip) => {
     </div>
   </div>`;
 
-  section.appendChild(div);
+  if (new Date() > new Date(trip.end)) {
+    box.getElementsByClassName("trip_countdown")[0].innerHTML = 'Your trip seemed to be ended!'
+  }
+  else if (daysLeft <= 0) {
+    box.getElementsByClassName("trip_countdown")[0].innerHTML = 'You seemed to be on the trip!'
+  }
+
+  section.appendChild(box);
   document.querySelector('.hero').appendChild(section);
 }
 
@@ -275,6 +291,8 @@ itemsArray.forEach((item) => {
   document.getElementsByClassName("clear")[0].style.display = 'block';
   displayTrip(item)
 })
+
+
 /* Button handle functions */
 
 const handleSearch = async (e) => {
@@ -331,9 +349,10 @@ const handleSave = async (e) => {
 }
 
 const handleCancel = (e) => {
-  e.preventDefault();
+  // e.preventDefault();
   $('#tripModal').modal('toggle');
   document.querySelector('.caption').style.display = 'block';
+  window.location.reload(true);
 }
 
 

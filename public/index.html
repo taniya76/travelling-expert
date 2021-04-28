@@ -13,6 +13,9 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <!-- css file  -->
   <link rel="stylesheet" href="css/style.css">
+  <!-- adding font  -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
   <title>Travelling Expert</title>
 </head>
 
@@ -24,7 +27,7 @@
         <i class="fas fa-plane-departure"></i>
         Travelling Expert
       </a>
-      
+
       <button type="button" class="btn btn-secondary clear">Clear All</button>
     </nav>
   </header>
@@ -35,7 +38,8 @@
           <div class="container search">
             <h1 class="display-1 text-center">Travel</h1>
             <div class="row">
-              <input type="text" id="city" placeholder="City" aria-label="City" class="form-control col-md-3 mt-1" autocomplete="off" spellcheck="true" required autofocus>
+              <input type="text" id="city" placeholder="City" aria-label="City" class="form-control col-md-3 mt-1"
+                autocomplete="off" spellcheck="true" required autofocus>
               <input type="date" id="date_start" aria-label="Date" class="form-control col-sm-6 col-md-3 mt-1">
               <input type="date" id="date_end" aria-label="Date" class="form-control col-sm-6 col-md-3 mt-1">
               <button class="btn btn-secondary col-md-2 mt-1" type="button" id="button_search">Search</button>
@@ -76,17 +80,17 @@
           </div>
         </div>
       </section>
-     
+
       <div>
         <section class="trips"></section>
       </div>
-      
+
     </div>
   </main>
 
   <!-- Jquery  -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  
+
   <!-- JS files  -->
   <script type="module" src="js/index.js"></script>
 
