@@ -23,7 +23,7 @@ app.listen(PORT, () => {
 
 /* Trips Array */
 
-const trips = [];
+// const trips = [];
 
 /* Routes */
 
@@ -34,8 +34,8 @@ app.get('/', (req, res) => {
 app.post('/save', (req, res, next) => {
   if (req.body !== " ") {
     const trip = req.body.trip;
-    console.log(trip);
-    trips.push(trip);
+    // console.log(trip);
+    // trips.push(trip);
     res.status(201).send(trip);
   } else {
     res.status(400).json('Bad Request');

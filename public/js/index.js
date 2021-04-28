@@ -74,7 +74,8 @@ async function getGeoLocation(location) {
 async function getWeatherForecast(latitude, longitude) {
   const endpoint = darkSkyURL + darkSkyKey + `/${latitude}, ${longitude}`;
   try {
-    const response = await fetch('http://localhost:8080/forecast',
+    var url1='/forecast';
+    const response = await fetch(url1,
       {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
@@ -108,8 +109,6 @@ async function getImageURL(city, country) {
           return jsonRes.hits[0].largeImageURL;
         }
       }
-      // console.log(jsonRes);
-      // console.log(jsonRes.hits[0].largeImageURL);
       return jsonRes.hits[0].largeImageURL;
     }
   } catch (error) {
@@ -309,7 +308,8 @@ const handleSave = async (e) => {
   e.preventDefault();
 
   try {
-    const response = await fetch('http://localhost:8080/save',
+    const url = '/save'
+    const response = await fetch(url,
       {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
